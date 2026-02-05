@@ -1,0 +1,11 @@
+/dependencies.graphml
+/html/
+/build/
+/TODO
+
+# ccls
+/.ccls-cache/
+/compile_commands.json
+
+
+.idea
