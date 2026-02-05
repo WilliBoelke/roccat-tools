@@ -339,7 +339,7 @@ static void gfx_update_cb(TyonDBusServer *server, gpointer user_data) {
 
 static void open_gui_cb(gpointer source, gpointer user_data) {
 	gchar *path;
-	path = g_build_path("/", INSTALL_PREFIX, "bin", "roccattyonconfig", (gchar const *)NULL);
+	path = g_build_path("/", INSTALL_PREFIX, "bin", "roccatleadrconfig", (gchar const *)NULL);
 	roccat_double_fork(path);
 	g_free(path);
 }
