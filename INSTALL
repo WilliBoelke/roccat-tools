@@ -36,6 +36,24 @@
   $ make
   $ sudo make install
 
+
+  ----------------------------------
+  i stumbled into several issues for the build.
+  Some headers are exected to be in different locations.
+  Also it seems that  newer GGC make some changes neccesary
+  (sepecifically the souble definition of `RyosWriteCheckWrite`.
+
+  As a bypass i used this cmake command:
+  cd build
+  rm -rf *
+  cmake -DCMAKE_INSTALL_PREFIX="/usr" \
+        -DWITH_LUA=5.4 \
+        -DCMAKE_MODULE_PATH=/usr/share/libgaminggear/cmake/Modules \
+        -DCMAKE_C_FLAGS="-isystem /usr/include/harfbuzz -fcommon" \
+        ..
+  make
+  ----------------------------------
+
   * Replace the Lua version with your actual.
   
   * It is strongly recommended to install everything in /usr instead of the default
