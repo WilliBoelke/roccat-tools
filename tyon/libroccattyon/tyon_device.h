@@ -54,7 +54,7 @@ typedef enum {
 } TyonReportId;
 
 typedef enum {
-	TYON_INTERFACE_MOUSE = 0,
+	TYON_INTERFACE_MOUSE = 0, /* Changed from 0 to 1 for Leadr wireless */
 	TYON_INTERFACE_KEYBOARD = 1,
 	TYON_INTERFACE_JOYSTICK = 2,
 	TYON_INTERFACE_MISC = 3,

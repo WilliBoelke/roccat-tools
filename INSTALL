@@ -50,6 +50,7 @@
         -DWITH_LUA=5.4 \
         -DCMAKE_MODULE_PATH=/usr/share/libgaminggear/cmake/Modules \
         -DCMAKE_C_FLAGS="-isystem /usr/include/harfbuzz -fcommon" \
+        -DDEVICES="tyon"
         ..
   make
   ----------------------------------

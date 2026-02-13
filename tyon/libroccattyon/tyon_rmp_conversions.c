@@ -21,6 +21,7 @@
 #include "roccat.h"
 #include "roccat_helper.h"
 #include "i18n-lib.h"
+#include "leadr_button_mapping.h"
 
 guint tyon_rmp_cpi_to_bin(guint rmp_value) {
 	return rmp_value << 2;
@@ -77,6 +78,7 @@ TyonProfileSettings *tyon_rmp_to_profile_settings(TyonRmp *rmp) {
 	return settings;
 }
 
+
 void tyon_rmp_update_with_profile_settings(TyonRmp *rmp, TyonProfileSettings const *profile_settings) {
 	TyonRmpLightInfo rmp_light_info;
 	guint i;
@@ -122,9 +124,13 @@ static void tyon_profile_buttons_set_button(TyonRmp *rmp, guint index,
 		TyonProfileButtons *profile_buttons) {
 	TyonRmpMacroKeyInfo *macro_key_info;
 	RoccatButton *button;
+	guint physical_index;
+
+	/* Map Tyon GUI index to Leadr physical button index */
+	physical_index = (index < TYON_PHYSICAL_BUTTON_NUM) ? leadr_button_map[index] : index;
 
 	macro_key_info = tyon_rmp_get_macro_key_info(rmp, index);
-	button = &profile_buttons->buttons[index];
+	button = &profile_buttons->buttons[physical_index];
 
 	button->type = macro_key_info->type;
 	switch (button->type) {
@@ -189,10 +195,13 @@ static void tyon_rmp_update_with_profile_button(TyonRmp *rmp,
 }
 
 void tyon_rmp_update_with_profile_buttons(TyonRmp *rmp, TyonProfileButtons const *profile_buttons) {
-	guint i;
+	guint i, physical_index;
 
-	for (i = 0; i < TYON_PROFILE_BUTTON_NUM; ++i)
-		tyon_rmp_update_with_profile_button(rmp, &profile_buttons->buttons[i], i);
+	for (i = 0; i < TYON_PROFILE_BUTTON_NUM; ++i) {
+		/* Map Leadr physical button index back to Tyon GUI index */
+		physical_index = (i < TYON_PHYSICAL_BUTTON_NUM) ? leadr_button_map_inverse[i] : i;
+		tyon_rmp_update_with_profile_button(rmp, &profile_buttons->buttons[i], physical_index);
+	}
 }
 
 void tyon_rmp_update_with_macro(TyonRmp *rmp, guint key_index, TyonMacro const *macro) {
